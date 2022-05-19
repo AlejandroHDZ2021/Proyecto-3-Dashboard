@@ -41,7 +41,7 @@ const render = ()=>{
                           <h3>${food.food_name.toUpperCase()}</h3> 
                         </div>
                         <div class="col-xl-4"  style="background-color:#ccc">
-                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
+                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
                         </div>
                 </div>`
     });
@@ -78,17 +78,16 @@ const bringNutrients = async(btn)=>{
        getKeys(foodData);
        
     
-}
-    let keyArray = []
+}   
+    let labels = []
     let keyValues = []
     const getKeys = (array)=>{
-        let keys = Object.entries(array).forEach(([key,value])=>{
+        let keys = Object.entries(array).map(([key,value])=>{
             if (key.startsWith('nf')) {
-                keyArray.push(key)
-                keyValues.push(value)
+              labels.push(key.slice(3).toLocaleUpperCase());
+              keyValues.push(value);
             }
-            console.log(keyArray,keyValues)
-            
+                  
         })
     } 
     
@@ -105,10 +104,10 @@ charts.forEach(function (chart) {
   var myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: keyArray,
+      labels: labels,
       datasets: [
         {
-          label: "# of Votes",
+          label: "Informacion Nutricional",
           data: keyValues,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -140,6 +139,12 @@ charts.forEach(function (chart) {
   });
 });
 
-
+let addToBasket = (btn) =>{
+  foodData.forEach((food)=>{
+    if (food.name = btn) {
+      
+    }
+  })
+}
 
 
