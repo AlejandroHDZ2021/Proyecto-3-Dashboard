@@ -42,7 +42,7 @@ const render = ()=>{
                         <div class="col-xl-4"  style="background-color:#ccc">
                         <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a
                         </div>
-                </div>
+                </div>`
     });
     
 }
