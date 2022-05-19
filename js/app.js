@@ -33,15 +33,15 @@ const render = ()=>{
     foodData.forEach(food => {
         container.innerHTML +=`
         
-        <div class="row">
+        <div class="row text-center align-item-center" style="border: 0.5px solid">
                         <div class="col-xl-4"  style="background-color:#aaa">
                         <img src="${food.photo.thumb}" class="card-img-top" alt="">
                         </div>
                         <div class="col-xl-4"  style="background-color:#bbb">
-                          <h2>${food.food_name.toUpperCase()}</h2> 
+                          <h3>${food.food_name.toUpperCase()}</h3> 
                         </div>
                         <div class="col-xl-4"  style="background-color:#ccc">
-                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Ver Detalles</a
+                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
                         </div>
                 </div>`
     });
@@ -105,11 +105,11 @@ charts.forEach(function (chart) {
   var myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      labels: keyArray,
       datasets: [
         {
           label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
+          data: keyValues,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",

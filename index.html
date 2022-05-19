@@ -129,25 +129,42 @@
                 Modal
               </div>
               <div class="card-body">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Modal
-                </button>
-
+                
                   <!-- Modal -->
                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">Food</h5>
+                          <h5 class="modal-title" id="staticBackdropLabel">Canasta</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          ...
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#info">
+                            Modal
+                          </button>
+
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ver detalles</button>
-                          <button type="button" class="btn btn-primary">Grafica</button>
+                      <h1>Total: 20</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Modal Info-->
+                  <div class="modal fade" id="info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="infoLabel">Informacion Nutricional</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <canvas class="chart" width="400" height="200"></canvas>
+
+
+                        </div>
+                        <div class="modal-footer">
                         </div>
                       </div>
                     </div>
