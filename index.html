@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Nutrients Dashboard</title>
   </head>
-  <body>
+  <body style="background-color: gray;">
     <!--Menu superior -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container-fluid">
@@ -95,43 +95,34 @@
       <div class="container-fluid">
         
         <div class="row justify-content-center">
-          <div class="col-md-8 mb-3">
-            <div class="card h-100">
-              <div class="card-header">
-                <span class="me-2"><i></i></span>
-                Buscar
-              </div>
-              <div class="card-body" >
-                <div class="dropdown hierarchy-select" id="example">
-                  <button type="button" class="btn btn-secondary dropdown-toggle" id="example-two-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                  <div class="dropdown-menu" aria-labelledby="example-two-button">
-                    <div class="hs-searchbox">
-                        <input type="text" class="form-control" autocomplete="off">
-                    </div>
-                        <div class="hs-menu-inner">
-                          
-                            <div class="dropdown-item" data-value="1" href="#">
-                              <img src="" alt="">
-                              <a>11</a>
-            
-                            </div>
-                            <div class="dropdown-item" data-value="2" href="#">
-                              <img src="" alt="">
-                              <a>22</a>
-                            </div>
-                            <div class="dropdown-item" data-value="3" href="#">
-                              <img src="" alt="">
-                              <a>33</a>
-            
-                            </div>
+            <div class="col-md-5 mb-3">
+              <div class="card h-100">
+                <div class="card-header text-center">
+                  <h1>
+                  <span class="me-2"><i class="bi bi-food"></i></span>
+                  Foods
+                </h1>
+                </div>
+                <div class="card-body">
+                        <div class="input-group">
+                          <input class="form-control" type="search" onkeypress="getData()" id="form1" placeholder="Search" aria-label="Search"/>
+                          <button type="button" onclick="getData()" class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i>
+                          </button>
                         </div>
-                      </div>
-                    </div>
+                        <div class="container">
+            
+                        </div>
+                        <canvas id="information"></canvas>
 
+                  </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-8 mb-3">
+          
+          
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 mb-3">
             <div class="card h-100">
               <div class="card-header">
                 <span class="me-2"><i></i></span>
@@ -164,9 +155,7 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-8 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card h-100">
               <div class="card-header">
                 <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
@@ -178,30 +167,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-8 mb-3">
-            <div class="card h-100">
-              <div class="card-header">
-                <span class="me-2"><i class="bi bi-food"></i></span>
-                Foods
-              </div>
-              <div class="card-body">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="search" onkeypress="getData()" id="form1" class="form-control" />
-                  </div>
-                  <button type="button" onclick="getData()" class="btn btn-primary">
-                    <i class="fas fa-search">Search</i>
-                  </button>
-                </div>
-              <div class="container">
-            
-              </div>
-              <canvas id="information"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
      
     </main>

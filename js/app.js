@@ -32,14 +32,25 @@ const render = ()=>{
     container.innerHTML=''
     foodData.forEach(food => {
         container.innerHTML +=`
-        <div class="card" style="width: 18rem;">
-            <img src="${food.photo.thumb}" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title text-center">${food.food_name.toUpperCase()}</h5>
-              <p class="card-text text-center">Serving Size:  grams</p>
-              <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a>
-            </div>
-        </div>
+        
+
+        <div class="row">
+                        <div class="col-xl-4"  style="background-color:#aaa">
+                        <img src="${food.photo.thumb}" class="card-img-top" alt="">
+
+                          
+                        </div>
+                        <div class="col-xl-4"  style="background-color:#bbb">
+                          <h2>${food.food_name.toUpperCase()}</h2> 
+                        </div>
+                        <div class="col-xl-4"  style="background-color:#ccc">
+                        <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a>
+
+                        </div>
+                </div>
+
+
+
         `
     });
     
