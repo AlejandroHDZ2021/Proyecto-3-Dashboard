@@ -65,22 +65,35 @@ const bringNutrients = async(btn)=>{
            })
            let data = await response.json()
            console.log(data.foods[0]) 
-           realData = data.foods[0]
-           renderChart()
+           foodData = data.foods[0]
+        //    renderChart()
        } catch (error) {
            container.innerHTML=`
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
-       setGraph(realData)
+       getKeys(foodData);
+       
+    
 }
-   
-const setGraph = (realData) => {
-    let labels = realData.filter(function(name){
-        if(name.startsWith('nf')){
-            return name
-        }
-    })
-    console.log(labels)
-}
+    let keyArray = []
+    let keyValues = []
+    const getKeys = (array)=>{
+        let keys = Object.entries(array).forEach(([key,value])=>{
+            if (key.startsWith('nf')) {
+                keyArray.push(key)
+                keyValues.push(value)
+            }
+            console.log(keyArray,keyValues)
+            
+        })
+    } 
+    // const setGraph = (realData) => {
+//     let labels = realData.filter(function(name){
+//         if(name.startsWith('nf')){
+//             return name
+//         }
+//     })
+//     console.log(labels)
+// }
 //=============== FUNCTION TO SHOW BAR CHART WITH ALL THE NUTRITION DETAILS ===============
