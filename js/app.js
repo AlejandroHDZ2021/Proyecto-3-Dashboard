@@ -32,14 +32,24 @@ const render = ()=>{
     container.innerHTML=''
     foodData.forEach(food => {
         container.innerHTML +=`
-        <div class="card" style="width: 18rem;">
-            <img src="${food.photo.thumb}" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title text-center">${food.food_name.toUpperCase()}</h5>
-              <p class="card-text text-center">Serving Size:  grams</p>
-              <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a>
-            </div>
-        </div>
+        
+        <div class="row">
+                        <div class="col-xl-4"  style="background-color:#aaa">
+                        <img src="${food.photo.thumb}" class="card-img-top" alt="">
+
+                          
+                        </div>
+                        <div class="col-xl-4"  style="background-color:#bbb">
+                          <h2>${food.food_name.toUpperCase()}</h2> 
+                        </div>
+                        <div class="col-xl-4"  style="background-color:#ccc">
+                        <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a>
+
+                        </div>
+                </div>
+
+
+
         `
     });
     
@@ -88,12 +98,60 @@ const bringNutrients = async(btn)=>{
             
         })
     } 
-    // const setGraph = (realData) => {
-//     let labels = realData.filter(function(name){
-//         if(name.startsWith('nf')){
-//             return name
-//         }
-//     })
-//     console.log(labels)
-// }
+    
 //=============== FUNCTION TO SHOW BAR CHART WITH ALL THE NUTRITION DETAILS ===============
+
+
+
+
+
+const charts = document.querySelectorAll(".chart");
+
+charts.forEach(function (chart) {
+  var ctx = chart.getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+});
+
+$(document).ready(function(){
+  $('#example').hierarchySelect({
+  hierarchy: false,
+  width: 'auto'
+ });
+});
+
+
