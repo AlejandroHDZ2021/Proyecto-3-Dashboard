@@ -41,7 +41,7 @@ const render = ()=>{
                           <h2>${food.food_name.toUpperCase()}</h2> 
                         </div>
                         <div class="col-xl-4"  style="background-color:#ccc">
-                        <a href="#"  class="btn  btn-danger" id="${food.food_name}"  onclick="bringNutrients(this)">Ver Detalles</a
+                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Ver Detalles</a
                         </div>
                 </div>`
     });
@@ -140,11 +140,6 @@ charts.forEach(function (chart) {
   });
 });
 
-$(document).ready(function(){
-  $('#example').hierarchySelect({
-  hierarchy: false,
-  width: 'auto'
- });
-});
+
 
 
