@@ -1,12 +1,16 @@
 const form1 = document.querySelector('#form1')
 const container = document.querySelector('#container')
 const information = document.querySelector('#information')
+const chart = document.querySelector(".chart")
+const canasta = document.querySelector('#canasta')
+const total = document.querySelector('#totalCalories')
+let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
+let foodSearch = form1.value;
 let foodData;
 let nutrients;
-let foodSearch = form1.value;
-const canasta = document.querySelector('#canasta')
-let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
-const total = document.querySelector('#totalCalories')
+
+
+
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
 const getData = async()=>{
@@ -37,16 +41,16 @@ const render = (array)=>{
         container.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
-                        <div class="col-xl-4">
-                        <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
-                        </div>
-                        <div class="col-xl-4" >
-                          <h4>${food.food_name}</h4> 
-                        </div>
-                        <div class="col-xl-4">
-                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
-                        </div>
-                </div>`
+                    <div class="col-xl-4">
+                      <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
+                    </div>
+                    <div class="col-xl-4" >
+                      <h4>${food.food_name}</h4> 
+                    </div>
+                    <div class="col-xl-4">
+                      <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
+                    </div>
+        </div>`
     });
     
 }
@@ -78,21 +82,9 @@ const bringNutrients = async(btn)=>{
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
-       getKeys(nutrients);
        addToStorage(nutrients)
     
 }   
-    let labels = []
-    let keyValues = []
-    const getKeys = (array)=>{
-        let keys = Object.entries(array).map(([key,value])=>{
-            if (key.startsWith('nf')) {
-              labels.push(key.slice(3).toLocaleUpperCase());
-              keyValues.push(value);
-            }
-                  
-        })
-    } 
     
 //=============== FUNCTION TO SHOW BAR CHART WITH ALL THE NUTRITION DETAILS ===============
 
@@ -100,73 +92,49 @@ const bringNutrients = async(btn)=>{
 
 
 
-const charts = document.querySelectorAll(".chart");
 
-charts.forEach(function (chart) {
-  var ctx = chart.getContext("2d");
-  var myChart = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Informacion Nutricional",
-          data: keyValues,
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
-          ],
-          borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ],
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
-});
-
-      
+//=============== FUNCTION TO ADD TOTAL CALORIES AND RENDER TOTAL ===============
 const renderTotal = ()=>{
   let totalCalories = 0
   plate.forEach(item =>{
     totalCalories += item.calories*1
   })
-  total.innerHTML=`Total ${totalCalories.toLocaleString()}`
+  total.innerHTML=`Total: ${totalCalories.toLocaleString()}`
 }
 
+//=============== FUNCTION TO ADD OBJECT TO LOCAL STORAGE ===============
 const addToStorage = (arr)=>{
   let objFood = {
     'name': `${arr.food_name}`,
     'photo': `${arr.photo.highres}`,
-    'calories':`${arr.nf_calories}`
+    'calories':`${arr.nf_calories}`,
+    'keys':[],
+    'values':[]
   }
+  let keys = Object.entries(arr).map(([key,value])=>{
+    if (key.startsWith('nf')) {
+      objFood.keys.push(key.slice(3).toLocaleUpperCase());
+      objFood.values.push(value);
+    }
+          
+})
   plate.push(objFood)
   updatePlate()
   renderTotal()
 }
+ 
+//=============== FUNCTION TO GET SET OF KEYS FOR CHART ===============
+  //   const getKeys = (array)=>{
+      
+  // } 
 
+//=============== FUNCTION TO UPDATE PLATE TO LOCAL STORAGE ===============
 const updatePlate = () =>{
   renderBasket()
   localStorage.setItem("PLATE", JSON.stringify(plate));
 }
-  
+ 
+//=============== FUNCTION TO RENDER ITEMS IN THE PLATE ===============
 const renderBasket = ()=>{
   canasta.innerHTML = ""
   plate.forEach((item)=>{
@@ -189,3 +157,44 @@ const renderBasket = ()=>{
 
   })
 }
+
+
+// charts.forEach(function (chart) {
+//   var ctx = chart.getContext("2d");
+//   var myChart = new Chart(ctx, {
+//     type: "bar",
+//     data: {
+//       labels: labels,
+//       datasets: [
+//         {
+//           label: "Informacion Nutricional",
+//           data: keyValues,
+//           backgroundColor: [
+//             "rgba(255, 99, 132, 0.2)",
+//             "rgba(54, 162, 235, 0.2)",
+//             "rgba(255, 206, 86, 0.2)",
+//             "rgba(75, 192, 192, 0.2)",
+//             "rgba(153, 102, 255, 0.2)",
+//             "rgba(255, 159, 64, 0.2)",
+//           ],
+//           borderColor: [
+//             "rgba(255, 99, 132, 1)",
+//             "rgba(54, 162, 235, 1)",
+//             "rgba(255, 206, 86, 1)",
+//             "rgba(75, 192, 192, 1)",
+//             "rgba(153, 102, 255, 1)",
+//             "rgba(255, 159, 64, 1)",
+//           ],
+//           borderWidth: 1,
+//         },
+//       ],
+//     },
+//     options: {
+//       scales: {
+//         y: {
+//           beginAtZero: true,
+//         },
+//       },
+//     },
+//   });
+// });
