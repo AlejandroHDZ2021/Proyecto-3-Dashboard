@@ -1,5 +1,5 @@
 const form1 = document.querySelector('#form1')
-const container = document.querySelector('.container')
+const container1 = document.querySelector('.container1')
 const information = document.querySelector('#information')
 let foodData;
 let foodSearch = form1.value;
@@ -29,18 +29,18 @@ const getData = async()=>{
 }
 //=============== FUNCTION TO RENDER CARD WITH FOOD ITEM INFORMATION ===============
 const render = ()=>{
-    container.innerHTML=''
+    container1.innerHTML=''
     foodData.forEach(food => {
-        container.innerHTML +=`
+        container1.innerHTML +=`
         
-        <div class="row text-center align-item-center" style="border: 0.5px solid">
-                        <div class="col-xl-4"  style="background-color:#aaa">
-                        <img src="${food.photo.thumb}" class="card-img-top" alt="">
+        <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
+                        <div class="col-md-4">
+                        <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
                         </div>
-                        <div class="col-xl-4"  style="background-color:#bbb">
-                          <h3>${food.food_name.toUpperCase()}</h3> 
+                        <div class="col-md-4" >
+                          <h4>${food.food_name}</h4> 
                         </div>
-                        <div class="col-xl-4"  style="background-color:#ccc">
+                        <div class="col-md-4">
                         <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
                         </div>
                 </div>`
@@ -71,7 +71,7 @@ const bringNutrients = async(btn)=>{
            foodData = data.foods[0]
         //    renderChart()
        } catch (error) {
-           container.innerHTML=`
+           container1.innerHTML=`
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
