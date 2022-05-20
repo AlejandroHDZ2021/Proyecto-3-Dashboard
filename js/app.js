@@ -34,13 +34,13 @@ const render = ()=>{
         container1.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
-                        <div class="col-md-4">
+                        <div class="col-xl-4">
                         <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
                         </div>
-                        <div class="col-md-4" >
+                        <div class="col-xl-4" >
                           <h4>${food.food_name}</h4> 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4">
                         <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
                         </div>
                 </div>`
