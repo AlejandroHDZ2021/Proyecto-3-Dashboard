@@ -5,7 +5,8 @@ let foodData;
 let nutrients;
 let foodSearch = form1.value;
 const canasta = document.querySelector('#canasta')
-
+let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
+const total = document.querySelector('#totalCalories')
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
 const getData = async()=>{
@@ -43,7 +44,7 @@ const render = (array)=>{
               <h3>${food.food_name.toUpperCase()}</h3> 
             </div>
             <div class="col-xl-4"  style="background-color:#ccc">
-              <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
+              <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);">Agregar</a
             </div>
         </div>`
     });
@@ -78,7 +79,7 @@ const bringNutrients = async(btn)=>{
            console.log('oops, no information was found on this item')
        }
        getKeys(nutrients);
-       
+       addToStorage(nutrients)
     
 }   
     let labels = []
@@ -141,24 +142,50 @@ charts.forEach(function (chart) {
   });
 });
 
-let addToBasket = (btn) =>{
-  foodData.forEach((food)=>{
-    if (btn.id === food.food_name) {
-      canasta.innerHTML +=`
+      
+const renderTotal = ()=>{
+  let totalCalories = 0
+  plate.forEach(item =>{
+    totalCalories += item.calories*1
+  })
+  total.innerHTML=`Total ${totalCalories.toLocaleString()}`
+}
+
+const addToStorage = (arr)=>{
+  let objFood = {
+    'name': `${arr.food_name}`,
+    'photo': `${arr.photo.highres}`,
+    'calories':`${arr.nf_calories}`
+  }
+  plate.push(objFood)
+  updatePlate()
+  renderTotal()
+}
+
+const updatePlate = () =>{
+  renderBasket()
+  localStorage.setItem("PLATE", JSON.stringify(plate));
+}
+  
+const renderBasket = ()=>{
+  canasta.innerHTML = ""
+  plate.forEach((item)=>{
+     canasta.innerHTML +=`
       
       <div class="row text-center align-item-center" style="border: 0.5px solid">
           <div class="col-xl-4"  style="background-color:#aaa">
-            <img src="${food.photo.thumb}" class="card-img-top" alt="">
+            <img src="${item.photo}" class="card-img-top" alt="">
           </div>
           <div class="col-xl-4"  style="background-color:#bbb">
-            <h5>${food.food_name.toUpperCase()}</h5> 
+            <h5>${item.name.toUpperCase()}</h5> 
+          </div>
+          <div class="col-xl-4"  style="background-color:#bbb">
+            <h5>${item.calories}</h5> 
           </div>
           <div class="col-xl-4"  style="background-color:#ccc">
             <a href="#"  class="btn  btn-danger"  data-bs-target="#info" data-bs-toggle="modal" >Ver info</a
           </div>
       </div>`
-    }
+
   })
 }
-
-
