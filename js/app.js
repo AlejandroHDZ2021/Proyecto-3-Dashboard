@@ -2,7 +2,9 @@ const form1 = document.querySelector('#form1')
 const container = document.querySelector('.container')
 const information = document.querySelector('#information')
 let foodData;
+let nutrients;
 let foodSearch = form1.value;
+const canasta = document.querySelector('#canasta')
 
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
@@ -18,9 +20,9 @@ const getData = async()=>{
             }
         })
         let data = await response.json()
-        console.log(data.common)
         foodData = data.common
-        render()
+        console.log(foodData)
+        render(foodData)
     } catch (error) {
         console.log('no item found')
     }
@@ -28,22 +30,22 @@ const getData = async()=>{
    
 }
 //=============== FUNCTION TO RENDER CARD WITH FOOD ITEM INFORMATION ===============
-const render = ()=>{
+const render = (array)=>{
     container.innerHTML=''
-    foodData.forEach(food => {
+    array.forEach(food => {
         container.innerHTML +=`
         
         <div class="row text-center align-item-center" style="border: 0.5px solid">
-                        <div class="col-xl-4"  style="background-color:#aaa">
-                        <img src="${food.photo.thumb}" class="card-img-top" alt="">
-                        </div>
-                        <div class="col-xl-4"  style="background-color:#bbb">
-                          <h3>${food.food_name.toUpperCase()}</h3> 
-                        </div>
-                        <div class="col-xl-4"  style="background-color:#ccc">
-                        <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
-                        </div>
-                </div>`
+            <div class="col-xl-4"  style="background-color:#aaa">
+              <img src="${food.photo.thumb}" class="card-img-top" alt="">
+            </div>
+            <div class="col-xl-4"  style="background-color:#bbb">
+              <h3>${food.food_name.toUpperCase()}</h3> 
+            </div>
+            <div class="col-xl-4"  style="background-color:#ccc">
+              <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this);addToBasket(this)">Agregar</a
+            </div>
+        </div>`
     });
     
 }
@@ -68,14 +70,14 @@ const bringNutrients = async(btn)=>{
            })
            let data = await response.json()
            console.log(data.foods[0]) 
-           foodData = data.foods[0]
+           nutrients = data.foods[0]
         //    renderChart()
        } catch (error) {
            container.innerHTML=`
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
-       getKeys(foodData);
+       getKeys(nutrients);
        
     
 }   
@@ -141,8 +143,20 @@ charts.forEach(function (chart) {
 
 let addToBasket = (btn) =>{
   foodData.forEach((food)=>{
-    if (food.name = btn) {
+    if (btn.id === food.food_name) {
+      canasta.innerHTML +=`
       
+      <div class="row text-center align-item-center" style="border: 0.5px solid">
+          <div class="col-xl-4"  style="background-color:#aaa">
+            <img src="${food.photo.thumb}" class="card-img-top" alt="">
+          </div>
+          <div class="col-xl-4"  style="background-color:#bbb">
+            <h5>${food.food_name.toUpperCase()}</h5> 
+          </div>
+          <div class="col-xl-4"  style="background-color:#ccc">
+            <a href="#"  class="btn  btn-danger"  data-bs-target="#info" data-bs-toggle="modal" >Ver info</a
+          </div>
+      </div>`
     }
   })
 }
