@@ -2,8 +2,11 @@ const form1 = document.querySelector('#form1')
 const container = document.querySelector('#container')
 const information = document.querySelector('#information')
 let foodData;
+let nutrients;
 let foodSearch = form1.value;
-
+const canasta = document.querySelector('#canasta')
+let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
+const total = document.querySelector('#totalCalories')
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
 const getData = async()=>{
@@ -18,9 +21,9 @@ const getData = async()=>{
             }
         })
         let data = await response.json()
-        console.log(data.common)
         foodData = data.common
-        render()
+        console.log(foodData)
+        render(foodData)
     } catch (error) {
         console.log('no item found')
     }
@@ -28,9 +31,9 @@ const getData = async()=>{
    
 }
 //=============== FUNCTION TO RENDER CARD WITH FOOD ITEM INFORMATION ===============
-const render = ()=>{
+const render = (array)=>{
     container.innerHTML=''
-    foodData.forEach(food => {
+    array.forEach(food => {
         container.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
@@ -68,15 +71,15 @@ const bringNutrients = async(btn)=>{
            })
            let data = await response.json()
            console.log(data.foods[0]) 
-           foodData = data.foods[0]
+           nutrients = data.foods[0]
         //    renderChart()
        } catch (error) {
            container.innerHTML=`
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
-       getKeys(foodData);
-       
+       getKeys(nutrients);
+       addToStorage(nutrients)
     
 }   
     let labels = []
@@ -139,12 +142,50 @@ charts.forEach(function (chart) {
   });
 });
 
-let addToBasket = (btn) =>{
-  foodData.forEach((food)=>{
-    if (food.name = btn) {
       
-    }
+const renderTotal = ()=>{
+  let totalCalories = 0
+  plate.forEach(item =>{
+    totalCalories += item.calories*1
   })
+  total.innerHTML=`Total ${totalCalories.toLocaleString()}`
 }
 
+const addToStorage = (arr)=>{
+  let objFood = {
+    'name': `${arr.food_name}`,
+    'photo': `${arr.photo.highres}`,
+    'calories':`${arr.nf_calories}`
+  }
+  plate.push(objFood)
+  updatePlate()
+  renderTotal()
+}
 
+const updatePlate = () =>{
+  renderBasket()
+  localStorage.setItem("PLATE", JSON.stringify(plate));
+}
+  
+const renderBasket = ()=>{
+  canasta.innerHTML = ""
+  plate.forEach((item)=>{
+     canasta.innerHTML +=`
+      
+      <div class="row text-center align-item-center" style="border: 0.5px solid">
+          <div class="col-xl-4"  style="background-color:#aaa">
+            <img src="${item.photo}" class="card-img-top" alt="">
+          </div>
+          <div class="col-xl-4"  style="background-color:#bbb">
+            <h5>${item.name.toUpperCase()}</h5> 
+          </div>
+          <div class="col-xl-4"  style="background-color:#bbb">
+            <h5>${item.calories}</h5> 
+          </div>
+          <div class="col-xl-4"  style="background-color:#ccc">
+            <a href="#"  class="btn  btn-danger"  data-bs-target="#info" data-bs-toggle="modal" >Ver info</a
+          </div>
+      </div>`
+
+  })
+}
