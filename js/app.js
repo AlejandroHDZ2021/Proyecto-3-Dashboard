@@ -1,5 +1,5 @@
 const form1 = document.querySelector('#form1')
-const container1 = document.querySelector('.container1')
+const container = document.querySelector('#container')
 const information = document.querySelector('#information')
 let foodData;
 let foodSearch = form1.value;
@@ -29,9 +29,9 @@ const getData = async()=>{
 }
 //=============== FUNCTION TO RENDER CARD WITH FOOD ITEM INFORMATION ===============
 const render = ()=>{
-    container1.innerHTML=''
+    container.innerHTML=''
     foodData.forEach(food => {
-        container1.innerHTML +=`
+        container.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
                         <div class="col-xl-4">
@@ -71,7 +71,7 @@ const bringNutrients = async(btn)=>{
            foodData = data.foods[0]
         //    renderChart()
        } catch (error) {
-           container1.innerHTML=`
+           container.innerHTML=`
            Sorry nothing was found please try another food item`
            console.log('oops, no information was found on this item')
        }
