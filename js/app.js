@@ -151,9 +151,7 @@ const renderBasket = ()=>{
           <div class="col-xl-3">
             <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
             <br/>
-            <a href="#"> <i class="bi bi-x-lg"></i></a
-            
-
+            <a href="#" onclick="deleteItem()"> <i class="bi bi-x-lg"></i></a
           </div>
           
       </div>`
@@ -161,12 +159,10 @@ const renderBasket = ()=>{
   })
 }
 
+//=============== FUNCTION TO GIVE CHART DATA TO GRAPH ===============
 const setChart = (info) => {
   plate.forEach(item =>{
     if (info.id === item.name) {
-      console.log(item.name)
-      console.log(item.keys)
-      console.log(item.values)
       var ctx = chart.getContext("2d");
       if(myChart){
         myChart.destroy();
@@ -201,3 +197,7 @@ const setChart = (info) => {
   
 }
   
+//=============== FUNCTION TO DELETE ITEM FROM BASKET ===============
+const deleteItem = ()=>{
+
+}
