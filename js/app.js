@@ -140,6 +140,8 @@ const renderBasket = ()=>{
       
       <div class="row text-center align-items-center" style="border: 0.5px solid">
           <div class="col-xl-3">
+          <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
+            <br/>
             <img src="${item.photo}"  style=" width: 50px; height: 50px;">
           </div>
           <div class="col-xl-3">
@@ -149,9 +151,8 @@ const renderBasket = ()=>{
             <h5>${item.calories}cal</h5> 
           </div>
           <div class="col-xl-3">
-            <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
-            <br/>
-            <a href="#" id="${item.name}+a" onclick="alertMe()"> <i class="bi bi-x-lg"></i></a
+            
+            <a href="#" onclick="deleteItem()"> <i class="bi bi-x-lg"></i></a
           </div>
           
       </div>`
