@@ -41,16 +41,16 @@ const render = (array)=>{
         container.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
-                    <div class="col-xl-4">
-                      <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
-                    </div>
-                    <div class="col-xl-4" >
-                      <h4>${food.food_name}</h4> 
-                    </div>
-                    <div class="col-xl-4">
-                      <a href="#"  class="btn  btn-danger" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
-                    </div>
-        </div>`
+                        <div class="col-xl-2">
+                        <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
+                        </div>
+                        <div class="col-xl-6" >
+                          <h5>${food.food_name}</h5> 
+                        </div>
+                        <div class="col-xl-2">
+                        <a href="#"  class="btn  btn-success btn-sm" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
+                        </div>
+                </div>`
     });
     
 }
@@ -123,10 +123,7 @@ const addToStorage = (arr)=>{
   renderTotal()
 }
  
-//=============== FUNCTION TO GET SET OF KEYS FOR CHART ===============
-  //   const getKeys = (array)=>{
-      
-  // } 
+
 
 //=============== FUNCTION TO UPDATE PLATE TO LOCAL STORAGE ===============
 const updatePlate = () =>{
@@ -140,19 +137,24 @@ const renderBasket = ()=>{
   plate.forEach((item)=>{
      canasta.innerHTML +=`
       
-      <div class="row text-center align-item-center" style="border: 0.5px solid">
-          <div class="col-xl-4"  style="background-color:#aaa">
-            <img src="${item.photo}" class="card-img-top" alt="">
+      <div class="row text-center align-items-center" style="border: 0.5px solid">
+          <div class="col-xl-3">
+            <img src="${item.photo}"  style=" width: 50px; height: 50px;">
           </div>
-          <div class="col-xl-4"  style="background-color:#bbb">
+          <div class="col-xl-3">
             <h5>${item.name.toUpperCase()}</h5> 
           </div>
-          <div class="col-xl-4"  style="background-color:#bbb">
-            <h5>${item.calories}</h5> 
+          <div class="col-xl-3">
+            <h5>${item.calories}cal</h5> 
           </div>
-          <div class="col-xl-4"  style="background-color:#ccc">
-            <a href="#"  class="btn  btn-danger"  data-bs-target="#info" data-bs-toggle="modal" >Ver info</a
+          <div class="col-xl-3">
+            <a href="#"  data-bs-target="#info" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
+            <br/>
+            <a href="#"> <i class="bi bi-x-lg"></i></a
+            
+
           </div>
+          
       </div>`
 
   })
