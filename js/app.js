@@ -151,7 +151,7 @@ const renderBasket = ()=>{
           <div class="col-xl-3">
             <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
             <br/>
-            <a href="#" onclick="deleteItem()"> <i class="bi bi-x-lg"></i></a
+            <a href="#" id="${item.name}+a" onclick="alertMe()"> <i class="bi bi-x-lg"></i></a
           </div>
           
       </div>`
@@ -198,6 +198,14 @@ const setChart = (info) => {
 }
   
 //=============== FUNCTION TO DELETE ITEM FROM BASKET ===============
-const deleteItem = ()=>{
+const deleteItem = (id)=>{
+  
+    plate.filter((item) => item.name+'a' !== id.id);       
 
+     updatePlate();
+   }
+
+const eraseAll =() =>{
+  localStorage.clear();
+  plate = [];
 }
