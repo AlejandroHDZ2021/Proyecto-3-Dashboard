@@ -1,10 +1,11 @@
+import * as 
+
 const form1 = document.querySelector('#form1')
 const container = document.querySelector('#container')
 const information = document.querySelector('#information')
 const chart = document.querySelector(".chart")
 const canasta = document.querySelector('#canasta')
-const total = document.querySelector('#totalCalories')
-let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
+
 let foodSearch = form1.value;
 let foodData;
 let nutrients;
