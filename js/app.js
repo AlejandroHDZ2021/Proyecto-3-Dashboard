@@ -8,6 +8,7 @@ let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
 let foodSearch = form1.value;
 let foodData;
 let nutrients;
+let myChart;
 
 
 
@@ -41,13 +42,13 @@ const render = (array)=>{
         container.innerHTML +=`
         
         <div class="row  text-center align-items-center justify-content-center" style="border: 0.5px solid; margin: 0px; ">
-                        <div class="col-xl-2">
+                        <div class="col-xl-4">
                         <img src="${food.photo.thumb}"  style=" width: 40px; height: 40px;">
                         </div>
-                        <div class="col-xl-6" >
+                        <div class="col-xl-4" >
                           <h5>${food.food_name}</h5> 
                         </div>
-                        <div class="col-xl-2">
+                        <div class="col-xl-4">
                         <a href="#"  class="btn  btn-success btn-sm" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
                         </div>
                 </div>`
@@ -102,7 +103,7 @@ const renderTotal = ()=>{
   total.innerHTML=`Total: ${totalCalories.toLocaleString()}`
 }
 
-//=============== FUNCTION TO ADD OBJECT TO LOCAL STORAGE ===============
+//=============== FUNCTION TO ADD FOOD ITEM AS OBJECT TO LOCAL STORAGE ===============
 const addToStorage = (arr)=>{
   let objFood = {
     'name': `${arr.food_name}`,
@@ -148,7 +149,7 @@ const renderBasket = ()=>{
             <h5>${item.calories}cal</h5> 
           </div>
           <div class="col-xl-3">
-            <a href="#"  data-bs-target="#info" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
+            <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
             <br/>
             <a href="#"> <i class="bi bi-x-lg"></i></a
             
@@ -160,43 +161,43 @@ const renderBasket = ()=>{
   })
 }
 
+const setChart = (info) => {
+  plate.forEach(item =>{
+    if (info.id === item.name) {
+      console.log(item.name)
+      console.log(item.keys)
+      console.log(item.values)
+      var ctx = chart.getContext("2d");
+      if(myChart){
+        myChart.destroy();
+      }
 
-// charts.forEach(function (chart) {
-//   var ctx = chart.getContext("2d");
-//   var myChart = new Chart(ctx, {
-//     type: "bar",
-//     data: {
-//       labels: labels,
-//       datasets: [
-//         {
-//           label: "Informacion Nutricional",
-//           data: keyValues,
-//           backgroundColor: [
-//             "rgba(255, 99, 132, 0.2)",
-//             "rgba(54, 162, 235, 0.2)",
-//             "rgba(255, 206, 86, 0.2)",
-//             "rgba(75, 192, 192, 0.2)",
-//             "rgba(153, 102, 255, 0.2)",
-//             "rgba(255, 159, 64, 0.2)",
-//           ],
-//           borderColor: [
-//             "rgba(255, 99, 132, 1)",
-//             "rgba(54, 162, 235, 1)",
-//             "rgba(255, 206, 86, 1)",
-//             "rgba(75, 192, 192, 1)",
-//             "rgba(153, 102, 255, 1)",
-//             "rgba(255, 159, 64, 1)",
-//           ],
-//           borderWidth: 1,
-//         },
-//       ],
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//         },
-//       },
-//     },
-//   });
-// });
+      const dataConfig = {
+        labels:item.keys,
+        datasets: [{
+          label: item.name,
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data:item.values,
+        }]
+      };
+
+      const config = {
+        type: 'bar',
+        data: dataConfig,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      };
+  myChart = new Chart(ctx,
+  config);
+    }
+  })
+ 
+  
+}
+  
