@@ -14,30 +14,34 @@ let myChart;
 
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
-const getData = async()=>{
-    const url = `https://trackapi.nutritionix.com/v2/search/instant?query=${form1.value}&detailed=true`
-    try {
-        let response = await fetch(url,{
-            method:'GET',
-            headers:{
-                'content-type':'application/json',
-                'x-app-id':'52961f76',
-                'x-app-key':'767fff5579e1dfc9bd9b25e883d8a276'
-            }
-        })
-        let data = await response.json()
-        foodData = data.common
-        console.log(foodData)
-        render(foodData)
-    } catch (error) {
-        console.log('no item found')
-    }
-    
-   
+getData = async()=>{
+  const url = `https://trackapi.nutritionix.com/v2/search/instant?query=${form1.value}&detailed=true`
+  try {
+      let response = await fetch(url,{
+          method:'GET',
+          headers:{
+              'content-type':'application/json',
+              'x-app-id':'52961f76',
+              'x-app-key':'767fff5579e1dfc9bd9b25e883d8a276'
+          }
+      })
+      let data = await response.json()
+      foodData = data.common
+      console.log(foodData)
+      render(foodData)
+  } catch (error) {
+    container.innerHTML=`
+         Sorry nothing was found please try another food item`
+      console.log('no item found')
+  }
+  
+ 
 }
+  
+
 //=============== FUNCTION TO RENDER CARD WITH FOOD ITEM INFORMATION ===============
 const render = (array)=>{
-    container.innerHTML=''
+    container.innerHTML='' 
     array.forEach(food => {
         container.innerHTML +=`
         
@@ -86,21 +90,16 @@ const bringNutrients = async(btn)=>{
        addToStorage(nutrients)
     
 }   
-    
-//=============== FUNCTION TO SHOW BAR CHART WITH ALL THE NUTRITION DETAILS ===============
-
-
-
-
-
 
 //=============== FUNCTION TO ADD TOTAL CALORIES AND RENDER TOTAL ===============
 const renderTotal = ()=>{
+  total.innerHTML=''
   let totalCalories = 0
   plate.forEach(item =>{
     totalCalories += item.calories*1
   })
-  total.innerHTML=`Total: ${totalCalories.toLocaleString()}`
+  total.innerHTML=`Total Calories: ${totalCalories.toLocaleString()}`
+  
 }
 
 //=============== FUNCTION TO ADD FOOD ITEM AS OBJECT TO LOCAL STORAGE ===============
@@ -129,6 +128,7 @@ const addToStorage = (arr)=>{
 //=============== FUNCTION TO UPDATE PLATE TO LOCAL STORAGE ===============
 const updatePlate = () =>{
   renderBasket()
+  renderTotal()
   localStorage.setItem("PLATE", JSON.stringify(plate));
 }
  
@@ -152,7 +152,7 @@ const renderBasket = ()=>{
           </div>
           <div class="col-xl-3">
             
-            <a href="#" onclick="deleteItem()"> <i class="bi bi-x-lg"></i></a
+            <a href="#" id="${item.name+'a'}" onclick="deleteItem(this)"> <i class="bi bi-x-lg"></i></a
           </div>
           
       </div>`
@@ -199,13 +199,18 @@ const setChart = (info) => {
 }
   
 //=============== FUNCTION TO DELETE ITEM FROM BASKET ===============
-const deleteItem = (id)=>{
-  
-    plate.filter((item) => item.name+'a' !== id.id);       
+const deleteItem = (btn)=>{
+  console.log(btn.id)
+  console.log(plate)
+plate.forEach((item,index) => {
+  if (item.name+'a' == btn.id) {
+    plate.splice(index,1)
+  }
+})
+  updatePlate()
+}
 
-     updatePlate();
-   }
-
+//=============== FUNCTION TO DELETE ALL ITEMS FROM BASKET ===============
 const eraseAll =() =>{
   localStorage.clear();
   plate = [];
