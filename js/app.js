@@ -1,4 +1,5 @@
 const form1 = document.querySelector('#form1')
+const totalCal = document.querySelector('#totalCal')
 const container = document.querySelector('#container')
 const information = document.querySelector('#information')
 const chart = document.querySelector(".chart")
@@ -99,6 +100,7 @@ const renderTotal = ()=>{
     totalCalories += item.calories*1
   })
   total.innerHTML=`Total Cal: ${totalCalories.toLocaleString()}`
+  totalCal.innerHTML=`Total Calories:<h2> ${totalCalories.toLocaleString()}</h2>`
   
 }
 
