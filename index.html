@@ -40,9 +40,9 @@
         </button>
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
-            <div >
+            <div onclick="renderBasket();renderTotal()">
               <a href="#" role="button" >
-                <i class="bi bi-basket-fill " data-bs-target="#staticBackdrop" data-bs-toggle="modal"></i>
+                <i  class="bi bi-basket-fill " data-bs-target="#staticBackdrop" data-bs-toggle="modal"></i>
               </a>
             </div>
           </form>
@@ -133,24 +133,18 @@
                         <div id="canasta" class="modal-body">
                          
                         </div>
-                          <div class="row">
+                        <div class="row">
                             
-                            <div class="col-xl-6">
-                              <a href="" class="btn btn-danger float-left "
-                              role="button" aria-pressed="true"><i class="bi bi-trash"></i>
+                          <div class="col-xl-6">
+                            <a href="" onclick="eraseAll()" class="btn btn-danger float-left "
+                            role="button" aria-pressed="true"><i class="bi bi-trash"></i>
 </a>
-                              </div>
-                              <div class="col-xl-6">
-                                <h3 class=" float-right " id="totalCalories"></h3>
-                              </div>
-                                    
                             </div>
-                          
-                     
-                            
-                          
-                     
-                        </div>
+                            <div class="col-xl-6">
+                              <h3 class=" float-right " id="totalCalories"></h3>
+                            </div>
+                                  
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -203,5 +197,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
 
     <script src="./js/app.js"></script>
+    
   </body>
 </html>
