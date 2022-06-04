@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-3-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejandroHDZ2021/Proyecto-3-Dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlejandroHDZ2021/Proyecto-3-Dashboard/issues"
+  },
+  "homepage": "https://github.com/AlejandroHDZ2021/Proyecto-3-Dashboard#readme"
+}
