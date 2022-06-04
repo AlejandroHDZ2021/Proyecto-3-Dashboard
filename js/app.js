@@ -1,4 +1,3 @@
-import eraseAll from "./eraseAll.js"
 const form1 = document.querySelector('#form1')
 const container = document.querySelector('#container')
 const information = document.querySelector('#information')
@@ -212,4 +211,7 @@ plate.forEach((item,index) => {
 }
 
 //=============== FUNCTION TO DELETE ALL ITEMS FROM BASKET ===============
-
+const eraseAll =() =>{
+  localStorage.clear();
+  plate = [];
+}
