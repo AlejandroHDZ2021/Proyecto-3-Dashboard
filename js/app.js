@@ -15,13 +15,10 @@ let foodData;
 let nutrients;
 let myChart;
 import eraseAll from "./eraseAll.js"
-form1.addEventListener("input",function () {
-    getData()
-})
-boton.addEventListener("click",function () {
-  getData()
-})
 
+//=============== EVENT LISTENERS ===============
+form1.addEventListener("input",()=>getData())
+boton.addEventListener("click",()=>getData())
 container.addEventListener("click",(e)=>bringNutrients(e.target.id))
 eraser.addEventListener("click",()=>eraseAll())
 bButton.addEventListener("click",()=>renderBasket())
@@ -29,7 +26,6 @@ bButton.addEventListener("click",()=>renderTotal())
 canasta.addEventListener('click',(e)=>deleteItem(e.target.id))
 canasta.addEventListener('click',(e)=>setChart(e.target.id))
 
-// eraseAll()
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
 const getData = async()=>{
