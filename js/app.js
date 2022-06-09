@@ -1,22 +1,35 @@
 const {getData} = require('./getData')
 const form1 = document.querySelector('#form1')
-const totalCal = document.querySelector('#totalCal')
+const bButton = document.querySelector("#basket")
+const eraser = document.querySelector('#eraser')
 const container = document.querySelector('#container')
+const boton = document.querySelector('#boton')
 const information = document.querySelector('#information')
 const chart = document.querySelector(".chart")
 const canasta = document.querySelector('#canasta')
 const total = document.querySelector('#totalCalories')
+const botones =document.querySelectorAll('button')
+const basket = document.querySelector('#basket')
 let plate = JSON.parse(localStorage.getItem("PLATE")) || [];
 let foodSearch = form1.value;
 let foodData;
 let nutrients;
 let myChart;
+import eraseAll from "./eraseAll.js"
 
-
+//=============== EVENT LISTENERS ===============
+form1.addEventListener("input",()=>getData())
+boton.addEventListener("click",()=>getData())
+container.addEventListener("click",(e)=>bringNutrients(e.target.id))
+eraser.addEventListener("click",()=>eraseAll())
+bButton.addEventListener("click",()=>renderBasket())
+bButton.addEventListener("click",()=>renderTotal())
+canasta.addEventListener('click',(e)=>deleteItem(e.target.id))
+canasta.addEventListener('click',(e)=>setChart(e.target.id))
 
 
 //=============== FUNCTION TO BRING GROUP OF ITEMS FROM API ===============
-getData = async()=>{
+const getData = async()=>{
   const url = `https://trackapi.nutritionix.com/v2/search/instant?query=${form1.value}&detailed=true`
   try {
       let response = await fetch(url,{
@@ -55,7 +68,7 @@ const render = (array)=>{
                           <h5>${food.food_name}</h5> 
                         </div>
                         <div class="col-xl-4">
-                        <a href="#"  class="btn  btn-success btn-sm" id="${food.food_name}" data-bs-target="#staticBackdrop" data-bs-toggle="modal" onclick="bringNutrients(this)">Agregar</a
+                        <a href="#" id="${food.food_name}" class="btn  btn-success btn-sm" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Agregar</a
                         </div>
                 </div>`
     });
@@ -65,8 +78,7 @@ const render = (array)=>{
 
 //=============== FUNCTION TO BRING NUTRITION DETAILS FROM API ===============
 
-
-const bringNutrients = async(btn)=>{
+const bringNutrients = async(name)=>{
     const url = 'https://trackapi.nutritionix.com/v2/natural/nutrients'
     try {
            let response = await fetch(url,{
@@ -77,7 +89,7 @@ const bringNutrients = async(btn)=>{
                    'x-app-key':'767fff5579e1dfc9bd9b25e883d8a276'
                },
                body:JSON.stringify({
-                    query:`${btn.id}`
+                    query:`${name}`
                })
            })
            let data = await response.json()
@@ -141,9 +153,9 @@ const renderBasket = ()=>{
   plate.forEach((item)=>{
      canasta.innerHTML +=`
       
-      <div class="row text-center align-items-center" style="border: 0.5px solid">
+      <div id="basket" class="row text-center align-items-center" style="border: 0.5px solid">
           <div class="col-xl-3">
-          <a href="#"  data-bs-target="#info" id="${item.name}" onclick="setChart(this)" data-bs-toggle="modal" > <i class="bi bi-info-circle-fill"></i></a
+          <a href="#"  data-bs-target="#info" data-bs-toggle="modal" > <i id="${item.name}" class="bi bi-info-circle-fill"></i></a
             <br/>
             <img src="${item.photo}"  style=" width: 50px; height: 50px;">
           </div>
@@ -155,7 +167,7 @@ const renderBasket = ()=>{
           </div>
           <div class="col-xl-3">
             
-            <a href="#" id="${item.name+'a'}" onclick="deleteItem(this)"> <i class="bi bi-x-lg"></i></a
+            <a href="#"><i id="${item.name+'a'}" class="bi bi-x-lg"></i></a
           </div>
           
       </div>`
@@ -166,7 +178,7 @@ const renderBasket = ()=>{
 //=============== FUNCTION TO GIVE CHART DATA TO GRAPH ===============
 const setChart = (info) => {
   plate.forEach(item =>{
-    if (info.id === item.name) {
+    if (info === item.name) {
       var ctx = chart.getContext("2d");
       if(myChart){
         myChart.destroy();
@@ -202,11 +214,9 @@ const setChart = (info) => {
 }
   
 //=============== FUNCTION TO DELETE ITEM FROM BASKET ===============
-const deleteItem = (btn)=>{
-  console.log(btn.id)
-  console.log(plate)
+const deleteItem = (name)=>{
 plate.forEach((item,index) => {
-  if (item.name+'a' == btn.id) {
+  if (item.name+'a' == name) {
     plate.splice(index,1)
   }
 })
@@ -214,7 +224,7 @@ plate.forEach((item,index) => {
 }
 
 //=============== FUNCTION TO DELETE ALL ITEMS FROM BASKET ===============
-const eraseAll =() =>{
-  localStorage.clear();
-  plate = [];
-}
+// const eraseAll =() =>{
+//   localStorage.clear();
+//   plate = [];
+// }
