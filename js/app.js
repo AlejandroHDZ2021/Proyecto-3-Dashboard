@@ -1,4 +1,3 @@
-const {getData} = require('./getData')
 const form1 = document.querySelector('#form1')
 const bButton = document.querySelector("#basket")
 const eraser = document.querySelector('#eraser')
@@ -113,7 +112,6 @@ const renderTotal = ()=>{
     totalCalories += item.calories*1
   })
   total.innerHTML=`Total Cal: ${totalCalories.toLocaleString()}`
-  totalCal.innerHTML=`Total Calories:<h2> ${totalCalories.toLocaleString()}</h2>`
   
 }
 
@@ -187,7 +185,7 @@ const setChart = (info) => {
       const dataConfig = {
         labels:item.keys,
         datasets: [{
-          label: item.name ,
+          label: item.name,
           backgroundColor: 'rgb(255, 99, 132)',
           borderColor: 'rgb(255, 99, 132)',
           data:item.values,
