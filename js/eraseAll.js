@@ -3,6 +3,7 @@ const eraseAll =() =>{
     plate = [];
     return plate
     
+    
   }
 
-  export default eraseAll
+  export default eraseAll;
